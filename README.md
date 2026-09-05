@@ -182,6 +182,9 @@ Verify that the stored hash starts with `$apr1$`. Do not use bcrypt `$2y$` hashe
 - Keep retention short. The provided compose file uses volatile memory storage, removes messages after 24 hours, and caps each mailbox at 100 messages.
 - Restrict accepted domains with Inbucket's `INBUCKET_SMTP_DEFAULTACCEPT=false` and `INBUCKET_SMTP_ACCEPTDOMAINS=your-domain.example` when operating a dedicated public receiver.
 - Apply firewall rules and rate limiting appropriate for an internet-facing SMTP service.
+- Anyone who can reach port 25 can send mail to any address on the domain. Message bodies are attacker-controlled text that ends up in agent context: treat returned links and codes as untrusted and only follow ones that match the flow under test.
+- Basic-auth credentials travel in cleartext unless `INBOX_BASE_URL` is `https://`. Never point the MCP at a plain `http://` endpoint on a remote host.
+- The open SMTP listener can be filled with junk by anyone (mail bomb). With volatile storage the instance degrades by losing test mail, not by leaking it.
 
 ## Verify
 

@@ -1,6 +1,6 @@
 services:
   inbucket:
-    image: ${INBUCKET_IMAGE:-inbucket/inbucket:latest}
+    image: ${INBUCKET_IMAGE:-inbucket/inbucket@sha256:96a4dc11f4c898db73c2413381bba2b75ed181199af2a31b12809a9436787ca2}
     restart: unless-stopped
     ports:
       - "25:2500"

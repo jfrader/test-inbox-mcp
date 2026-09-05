@@ -348,7 +348,7 @@ func toolNewAddress(raw json.RawMessage) (any, error) {
 	}
 	local := sanitizeLocal(args.LocalPart)
 	if args.LocalPart == "" {
-		suffix, err := randomHex(2)
+		suffix, err := randomHex(8)
 		if err != nil {
 			return nil, fmt.Errorf("generate address: %w", err)
 		}
