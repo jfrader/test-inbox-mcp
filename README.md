@@ -218,4 +218,4 @@ The server intentionally uses only the Go standard library. `CONTRIBUTING.md` an
 
 ## License
 
-A license has not been chosen. The repository owner must choose between MIT and Apache-2.0 before publication. No `LICENSE` file is included intentionally.
+MIT — see [LICENSE](LICENSE).
