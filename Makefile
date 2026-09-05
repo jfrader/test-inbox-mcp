@@ -1,4 +1,4 @@
-BINARY := bin/agent-test-inbox-mcp
+BINARY := bin/test-inbox-mcp
 
 .PHONY: build smoke test clean
 

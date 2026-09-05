@@ -180,7 +180,7 @@ func api(method, path string) ([]byte, error) {
 	if user != "" {
 		req.SetBasicAuth(user, pass)
 	}
-	req.Header.Set("User-Agent", "agent-test-inbox-mcp/"+serverVersion)
+	req.Header.Set("User-Agent", "test-inbox-mcp/"+serverVersion)
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
@@ -571,7 +571,7 @@ func handle(request *rpcRequest) rpcResponse {
 		response.Result = map[string]any{
 			"protocolVersion": protocolVersion,
 			"capabilities":    map[string]any{"tools": map[string]any{}},
-			"serverInfo":      map[string]any{"name": "agent-test-inbox-mcp", "version": serverVersion},
+			"serverInfo":      map[string]any{"name": "test-inbox-mcp", "version": serverVersion},
 		}
 	case "ping":
 		response.Result = map[string]any{}
@@ -623,7 +623,7 @@ func run(input io.Reader, output, errorOutput io.Writer) error {
 		}
 		var request rpcRequest
 		if err := json.Unmarshal(line, &request); err != nil {
-			fmt.Fprintf(errorOutput, "agent-test-inbox-mcp: bad input: %v\n", err)
+			fmt.Fprintf(errorOutput, "test-inbox-mcp: bad input: %v\n", err)
 			continue
 		}
 		if len(request.ID) == 0 {
@@ -631,7 +631,7 @@ func run(input io.Reader, output, errorOutput io.Writer) error {
 		}
 		body, err := json.Marshal(handle(&request))
 		if err != nil {
-			fmt.Fprintf(errorOutput, "agent-test-inbox-mcp: marshal: %v\n", err)
+			fmt.Fprintf(errorOutput, "test-inbox-mcp: marshal: %v\n", err)
 			continue
 		}
 		if _, err := fmt.Fprintln(output, string(body)); err != nil {
@@ -643,11 +643,11 @@ func run(input io.Reader, output, errorOutput io.Writer) error {
 
 func main() {
 	if err := loadConfig(); err != nil {
-		fmt.Fprintln(os.Stderr, "agent-test-inbox-mcp:", err)
+		fmt.Fprintln(os.Stderr, "test-inbox-mcp:", err)
 		os.Exit(1)
 	}
 	if err := run(os.Stdin, os.Stdout, os.Stderr); err != nil {
-		fmt.Fprintln(os.Stderr, "agent-test-inbox-mcp:", err)
+		fmt.Fprintln(os.Stderr, "test-inbox-mcp:", err)
 		os.Exit(1)
 	}
 }
