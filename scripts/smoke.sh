@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-binary=${1:-./bin/agent-test-inbox-mcp}
+binary=${1:-./bin/test-inbox-mcp}
 
 output=$(
   printf '%s\n' \

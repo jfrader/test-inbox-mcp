@@ -1,6 +1,6 @@
-# Inbox Mail MCP
+# Test Inbox MCP
 
-Inbox Mail MCP gives coding agents disposable email addresses and a small set of tools for testing signup confirmations, magic links, password resets, and one-time codes. It is a zero-dependency Go stdio MCP server backed by a self-hosted [Inbucket](https://www.inbucket.org/) instance.
+Test Inbox MCP gives coding agents disposable email addresses and a small set of tools for testing signup confirmations, magic links, password resets, and one-time codes. It is a zero-dependency Go stdio MCP server backed by a self-hosted [Inbucket](https://www.inbucket.org/) instance.
 
 The MCP process runs on the developer's machine. It creates addresses locally and uses Inbucket's REST API to list, retrieve, wait for, and delete test messages. Inbucket accepts SMTP mail, stores it for inspection, and never relays it onward.
 
@@ -50,7 +50,7 @@ This configuration receives addresses ending in `@inbox.example.com`. Allow inbo
 make build
 export INBOX_BASE_URL=http://127.0.0.1:9000
 export INBOX_DOMAIN=inbox.example.com
-./bin/agent-test-inbox-mcp
+./bin/test-inbox-mcp
 ```
 
 The process waits for newline-delimited MCP JSON-RPC on standard input. MCP clients normally start it for you.
@@ -68,7 +68,7 @@ Set both basic-auth variables or neither. Keep credentials in environment variab
 
 ## MCP client configuration
 
-Replace `/absolute/path/to/agent-test-inbox-mcp` with the built binary path. Add basic-auth variables only when the API is behind basic auth.
+Replace `/absolute/path/to/test-inbox-mcp` with the built binary path. Add basic-auth variables only when the API is behind basic auth.
 
 ### OpenCode
 
@@ -80,7 +80,7 @@ Add this to `opencode.json` or `opencode.jsonc`:
   "mcp": {
     "inbox-mail": {
       "type": "local",
-      "command": ["/absolute/path/to/agent-test-inbox-mcp"],
+      "command": ["/absolute/path/to/test-inbox-mcp"],
       "enabled": true,
       "environment": {
         "INBOX_BASE_URL": "https://inbox.example.com",
@@ -101,7 +101,7 @@ Add this entry under `mcpServers` in `claude_desktop_config.json`:
 {
   "mcpServers": {
     "inbox-mail": {
-      "command": "/absolute/path/to/agent-test-inbox-mcp",
+      "command": "/absolute/path/to/test-inbox-mcp",
       "args": [],
       "env": {
         "INBOX_BASE_URL": "https://inbox.example.com",
@@ -124,7 +124,7 @@ Create `.cursor/mcp.json` in a project or edit the global Cursor MCP configurati
 {
   "mcpServers": {
     "inbox-mail": {
-      "command": "/absolute/path/to/agent-test-inbox-mcp",
+      "command": "/absolute/path/to/test-inbox-mcp",
       "args": [],
       "env": {
         "INBOX_BASE_URL": "https://inbox.example.com",
