@@ -1,0 +1,19 @@
+services:
+  inbucket:
+    image: ${INBUCKET_IMAGE:-inbucket/inbucket:latest}
+    restart: unless-stopped
+    ports:
+      - "25:2500"
+      - "127.0.0.1:9000:9000"
+    environment:
+      INBUCKET_LOGLEVEL: info
+      INBUCKET_MAILBOXNAMING: local
+      INBUCKET_SMTP_DEFAULTACCEPT: "true"
+      INBUCKET_SMTP_DEFAULTSTORE: "true"
+      INBUCKET_SMTP_TIMEOUT: 60s
+      INBUCKET_WEB_MONITORVISIBLE: "false"
+      INBUCKET_WEB_PPROF: "false"
+      INBUCKET_STORAGE_TYPE: memory
+      INBUCKET_STORAGE_PARAMS: maxkb:131072
+      INBUCKET_STORAGE_RETENTIONPERIOD: 24h
+      INBUCKET_STORAGE_MAILBOXMSGCAP: "100"
