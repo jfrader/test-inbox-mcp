@@ -120,8 +120,8 @@ Treat this as an internet-facing SMTP receiver holding other people's login link
   ends up in agent context. Only follow links and codes that match the flow under test.
 - Never use it for production user mail. Keep retention short; the provided compose file
   is volatile, removes messages after 24 hours, and caps each mailbox at 100 messages.
-- Keep the Inbucket web and API port on loopback. To reach it from another machine, put an
-  HTTPS reverse proxy with basic auth in front of it:
+- Expose only SMTP publicly. Keep the Inbucket web and API port on loopback; to reach it
+  from another machine, put an HTTPS reverse proxy with basic auth in front of it:
 
   ```nginx
   location / {
@@ -134,8 +134,9 @@ Treat this as an internet-facing SMTP receiver holding other people's login link
   ```
 
   Generate the password file with an Apache MD5 `apr1` hash, for example
-  `htpasswd -c -m ./inbox.htpasswd inbox-user`. nginx rejects bcrypt `$2y$` hashes, and
-  every authenticated request then returns HTTP 403.
+  `htpasswd -c -m ./inbox.htpasswd inbox-user`, and confirm the stored hash starts with
+  `$apr1$`. nginx rejects bcrypt `$2y$` hashes, and every authenticated request then
+  returns HTTP 403.
 - Basic-auth credentials travel in cleartext unless `INBOX_BASE_URL` is `https://`. Never
   point the server at a plain `http://` endpoint on a remote host.
 - For a dedicated public receiver, restrict accepted domains with
